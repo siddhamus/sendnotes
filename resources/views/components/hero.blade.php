@@ -4,7 +4,7 @@
             <div class="px-6 lg:px-0 lg:pt-4">
                 <div class="max-w-2xl mx-auto">
                     <div class="max-w-lg">
-                        <img class="h-11" src="{{ asset('img/tok_hero.png') }}" alt="IB Diploma Programme">
+                        {{-- <img class="h-11" src="{{ asset('img/tok_hero.png') }}" alt="IB Diploma Programme"> --}}
                         <div class="mt-24 sm:mt-32 lg:mt-16">
                             <a href="#" class="inline-flex space-x-6">
                                 <span class="px-3 py-1 text-sm font-semibold leading-6 text-indigo-600 rounded-full bg-indigo-600/10 ring-1 ring-inset ring-indigo-600/10">What's new</span>
@@ -30,7 +30,7 @@
                 <div class="shadow-lg md:rounded-3xl">
                     <div class="bg-indigo-500 [clip-path:inset(0)] md:[clip-path:inset(0_round_theme(borderRadius.3xl))]">
                         <div class="absolute -inset-y-px left-1/2 -z-10 ml-10 w-[200%] skew-x-[-30deg] bg-indigo-100 opacity-20 ring-1 ring-inset ring-white md:ml-20 lg:ml-36" aria-hidden="true"></div>
-                        <img src="{{ asset('img/sc.svg') }}" alt="IBDP Resources">
+                        {{-- <img src="{{ asset('img/sc.svg') }}" alt="IBDP Resources"> --}}
                     </div>
                 </div>
             </div>
