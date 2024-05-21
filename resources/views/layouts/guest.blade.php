@@ -13,6 +13,9 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @wireUiScripts
+        @livewireStyles
+        
     </head>
     <body class="font-sans antialiased text-gray-900">
         @livewire('navigation-menu')
@@ -28,6 +31,6 @@
         </div>
 
         @livewire('footer')
-
+        
     </body>
 </html>

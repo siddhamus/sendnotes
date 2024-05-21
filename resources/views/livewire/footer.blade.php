@@ -5,7 +5,8 @@
             <div>
                 <h3 class="mb-2 text-lg font-bold">About</h3>
                 <p class="text-sm">
-                    Welcome to Sidhant Chaudhary's English Classes. Enhance your English skills with our comprehensive courses and resources.
+ Welcome to the world of resourceful nerds, where your curiosity to find multiple classroom solutions can meet its resolution. We are a team of zealous educators who are attempting to make learning for our students more adaptive and intriguing. 
+For the simple reason learners see English with a ‘wing it’ approach, sparked our fuel to guide learners with right approach towards the subject. Our comprehensive resources are made with an approach to make the navigation through them easier for all the stakeholders.
                 </p>
             </div>
             <!-- Quick Links Section -->
@@ -13,7 +14,9 @@
                 <h3 class="mb-2 text-lg font-bold">Quick Links</h3>
                 <ul class="space-y-2 text-sm">
                     <li><a href="{{ route('courses') }}" class="hover:underline">Courses</a></li>
+                    <li><a href="{{ route('resources') }}" class="hover:underline">Resources</a></li>
                     <li><a href="{{ route('blog') }}" class="hover:underline">Blog</a></li>
+
                     <li><a href="{{ route('contact') }}" class="hover:underline">Contact Us</a></li>
                 </ul>
             </div>
@@ -22,8 +25,8 @@
                 <h3 class="mb-2 text-lg font-bold">Contact</h3>
                 <ul class="space-y-2 text-sm">
                     <li>Email: info@sidhantchaudhary.com</li>
-                    <li>Phone: +1 234 567 890</li>
-                    <li>Address: 123 Main Street, City, Country</li>
+                    {{-- <li>Phone: +1 234 567 890</li> --}}
+                    <li>Address: Gurugram, India</li>
                 </ul>
             </div>
         </div>
