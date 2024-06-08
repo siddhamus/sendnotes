@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout title="Home">
     @include('components.hero')
       
     <div class="relative overflow-hidden bg-indigo-700">
