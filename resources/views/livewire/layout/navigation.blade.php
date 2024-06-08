@@ -1,8 +1,6 @@
 <?php
-
 use App\Livewire\Actions\Logout;
 use Livewire\Volt\Component;
-
 new class extends Component
 {
     /**
@@ -11,100 +9,133 @@ new class extends Component
     public function logout(Logout $logout): void
     {
         $logout();
-
-        $this->redirect('/', navigate: true);
+        $this->redirect('/', navigate: false);
     }
 }; ?>
-
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
-    <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" wire:navigate>
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
-                    </a>
-                </div>
-
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                </div>
-            </div>
-
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
-                    <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                            <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-
-                            <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        </button>
-                    </x-slot>
-
-                    <x-slot name="content">
-                        <x-dropdown-link :href="route('profile')" wire:navigate>
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
-                            <x-dropdown-link>
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </button>
-                    </x-slot>
-                </x-dropdown>
-            </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
+<nav x-data="{ mobileMenuOpen: false, profileMenuOpen: false }" class="bg-white shadow">
+    <div class="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex px-2 lg:px-0">
+          <div class="flex items-center flex-shrink-0">
+            <img class="w-auto h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
+          </div>
+          <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
+            <!-- Replaced <a> with <button> and added wire:click -->
+            <button wire:click="goToDashboard" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500">
+              Dashboard
+            </button>
+            <button wire:click="goToTeam" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
+              Team
+            </button>
+            <button wire:click="goToProjects" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
+              Projects
+            </button>
+            <button wire:click="goToCalendar" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
+              Calendar
+            </button>
+          </div>
         </div>
+        <div class="flex items-center justify-center flex-1 px-2 lg:ml-6 lg:justify-end">
+          <div class="w-full max-w-lg lg:max-w-xs">
+            <label for="search" class="sr-only">Search</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <input id="search" name="search" class="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Search" type="search">
+            </div>
+          </div>
+        </div>
+        <div class="flex items-center lg:hidden">
+          <!-- Mobile menu button -->
+          <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="relative inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="absolute -inset-0.5"></span>
+            <span class="sr-only">Open main menu</span>
+            <svg :class="{'hidden': mobileMenuOpen, 'block': !mobileMenuOpen }" class="block w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <svg :class="{'hidden': !mobileMenuOpen, 'block': mobileMenuOpen }" class="hidden w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+        <div class="hidden lg:ml-4 lg:flex lg:items-center">
+          <button type="button" class="relative flex-shrink-0 p-1 text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+          </button>
+          
+
+          <!-- Profile dropdown -->
+          <div class="relative flex-shrink-0 ml-4" @click.away="profileMenuOpen = false">
+            <div>
+              <button @click="profileMenuOpen = !profileMenuOpen" type="button" class="relative flex text-sm bg-white rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only">Open user menu</span>
+                <img class="w-8 h-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+              </button>
+            </div>
+
+            <!-- Dropdown menu -->
+            <div x-show="profileMenuOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+            <x-dropdown-link :href="route('profile')" wire:navigate > {{ __('Profile') }}</x-dropdown-link>
+            <button wire:click="logout" class="block w-full px-4 py-2 text-sm text-left text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+    <!-- Mobile menu -->
+    <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="lg:hidden" id="mobile-menu">
+      <div class="pt-2 pb-3 space-y-1">
+        <button wire:click="goToDashboard" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50">
+          Dashboard
+        </button>
+        <button wire:click="goToTeam" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+          Team
+        </button>
+        <button wire:click="goToProjects" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+          Projects
+        </button>
+        <button wire:click="goToCalendar" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
+          Calendar
+        </button>
+      </div>
+      <div class="pt-4 pb-3 border-t border-gray-200">
+        <div class="flex items-center px-4">
+          <div class="flex-shrink-0">
+            <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+          </div>
+          <div class="ml-3">
+            <div class="text-base font-medium text-gray-800">Tom Cook</div>
+            <div class="text-sm font-medium text-gray-500">tom@example.com</div>
+          </div>
+          <button type="button" class="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            <span class="absolute -inset-1.5"></span>
+            <span class="sr-only">View notifications</span>
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+            </svg>
+          </button>
         </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
-            <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200" x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
-                <div class="font-medium text-sm text-gray-500">{{ auth()->user()->email }}</div>
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile')" wire:navigate>
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
-                    <x-responsive-nav-link>
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </button>
-            </div>
+        <div class="mt-3 space-y-1">
+          <button wire:click="viewProfile" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+            Your Profile
+          </button>
+          <button wire:click="goToSettings" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+            Settings
+          </button>
+          <button wire:click="signOut" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+            Sign out
+          </button>
         </div>
+      </div>
     </div>
-</nav>
+  </nav>
+  

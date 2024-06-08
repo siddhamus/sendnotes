@@ -12,6 +12,8 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+    
+
     Route::get('/courses', function () {
         // Add your logic for courses page
         return view('courses');
