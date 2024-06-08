@@ -16,24 +16,8 @@ new class extends Component
     <div class="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
       <div class="flex justify-between h-16">
         <div class="flex px-2 lg:px-0">
-          <div class="flex items-center flex-shrink-0">
-            <img class="w-auto h-8" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="Your Company">
-          </div>
-          <div class="hidden lg:ml-6 lg:flex lg:space-x-8">
-            <!-- Replaced <a> with <button> and added wire:click -->
-            <button wire:click="goToDashboard" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-indigo-500">
-              Dashboard
-            </button>
-            <button wire:click="goToTeam" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-              Team
-            </button>
-            <button wire:click="goToProjects" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-              Projects
-            </button>
-            <button wire:click="goToCalendar" class="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 hover:text-gray-700">
-              Calendar
-            </button>
-          </div>
+         
+          
         </div>
         <div class="flex items-center justify-center flex-1 px-2 lg:ml-6 lg:justify-end">
           <div class="w-full max-w-lg lg:max-w-xs">
@@ -93,28 +77,15 @@ new class extends Component
 
     <!-- Mobile menu -->
     <div x-show="mobileMenuOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="lg:hidden" id="mobile-menu">
-      <div class="pt-2 pb-3 space-y-1">
-        <button wire:click="goToDashboard" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-indigo-700 border-l-4 border-indigo-500 bg-indigo-50">
-          Dashboard
-        </button>
-        <button wire:click="goToTeam" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-          Team
-        </button>
-        <button wire:click="goToProjects" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-          Projects
-        </button>
-        <button wire:click="goToCalendar" class="block w-full py-2 pl-3 pr-4 text-base font-medium text-left text-gray-600 border-l-4 border-transparent hover:border-gray-300 hover:bg-gray-50 hover:text-gray-800">
-          Calendar
-        </button>
-      </div>
+      
       <div class="pt-4 pb-3 border-t border-gray-200">
         <div class="flex items-center px-4">
           <div class="flex-shrink-0">
             <img class="w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
           </div>
           <div class="ml-3">
-            <div class="text-base font-medium text-gray-800">Tom Cook</div>
-            <div class="text-sm font-medium text-gray-500">tom@example.com</div>
+            <div class="text-base font-medium text-gray-800">{{ Auth::user()->name ?? 'Guest' }}</div>
+            <div class="text-sm font-medium text-gray-500"> {{ Auth::user()->email ?? 'guest@example.com' }}</div>
           </div>
           <button type="button" class="relative flex-shrink-0 p-1 ml-auto text-gray-400 bg-white rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
@@ -125,13 +96,11 @@ new class extends Component
           </button>
         </div>
         <div class="mt-3 space-y-1">
-          <button wire:click="viewProfile" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+          <a href="{{ route('profile') }}" wire:navigate class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
             Your Profile
-          </button>
-          <button wire:click="goToSettings" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
-            Settings
-          </button>
-          <button wire:click="signOut" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+          </a>
+          
+          <button wire:click="logout" class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
             Sign out
           </button>
         </div>

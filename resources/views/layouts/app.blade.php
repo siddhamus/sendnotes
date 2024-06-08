@@ -22,7 +22,7 @@
             <!-- Sidebar -->
             <livewire:layout.sidebar />
             
-            <div class="lg:pl-72">
+            <div>
                 <livewire:layout.navigation />
 
                 <!-- Page Heading -->
@@ -35,7 +35,7 @@
                 @endif
 
                 <!-- Page Content -->
-                <main>
+                <main class="px-24">
                     {{ $slot }}
                     @livewireScripts
                 </main>

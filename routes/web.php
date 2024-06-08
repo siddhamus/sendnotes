@@ -14,6 +14,8 @@ Route::view('profile', 'profile')
 
     
 
+    
+
     Route::get('/courses', function () {
         // Add your logic for courses page
         return view('courses');
