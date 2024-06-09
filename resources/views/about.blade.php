@@ -1,4 +1,4 @@
-<x-guest-layout>
+<x-guest-layout title="About">
     <div class="min-h-full pb-32 bg-indigo-900 ">
       <main class="relative isolate">
         <!-- Background -->
