@@ -19,9 +19,11 @@
         
     </head>
     <body class="h-full text-gray-900">
+    @if (auth()->check())
+        @livewire('layout.navigation')
+    @else
         @livewire('navigation-menu')
-        <div class="min-h-screen pt-6 bg-gray-100 sm:justify-center sm:pt-0 dark:bg-gray-900">
-            
+    @endif
             
             
             <main>

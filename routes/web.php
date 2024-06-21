@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome');
+Route::view('/', 'welcome')->name('welcome');
 
 // Dashboard Route: Accessible only by 'admin' and 'instructor'
 Route::view('dashboard', 'dashboard')
