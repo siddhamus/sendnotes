@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Navigation;
 
 use Livewire\Component;
 
@@ -17,6 +17,6 @@ class MobileMenu extends Component
     
     public function render()
     {
-        return view('livewire.mobile-menu');
+        return view('livewire.navigation.mobile-menu');
     }
 }
