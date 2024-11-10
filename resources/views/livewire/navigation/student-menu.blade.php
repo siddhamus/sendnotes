@@ -132,7 +132,7 @@
             <div class="mt-3 space-y-1">
                 <a href="{{ route('profile') }}" wire:navigate
                     class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
-                    Your Profile
+                    Your Profilell
                 </a>
 
                 <button wire:click="logout"

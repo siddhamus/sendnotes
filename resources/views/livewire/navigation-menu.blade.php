@@ -1,16 +1,12 @@
 <div>
     @auth
-        @role('admin')
+        @if (auth()->user()->hasRole('admin'))
             @livewire('navigation.admin-menu')
-        @else
-            @role('instructor')
-                @livewire('navigation.instructor-menu')
-            @else
-                @role('student')
-                    @livewire('navigation.student-menu')
-                @endrole
-            @endrole
-        @endrole
+        @elseif(auth()->user()->hasRole('instructor'))
+            @livewire('navigation.instructor-menu')
+        @elseif(auth()->user()->hasRole('student'))
+            @livewire('navigation.student-menu')
+        @endif
     @else
         @livewire('navigation.guest-menu')
     @endauth

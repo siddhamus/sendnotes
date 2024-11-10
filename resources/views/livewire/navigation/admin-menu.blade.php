@@ -77,7 +77,9 @@
                         x-transition:leave-end="transform opacity-0 scale-95"
                         class="absolute right-0 z-10 w-48 py-1 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                         role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
+                        {{-- <x-dropdown-link :href="route('home')" wire:navigate> {{ __('Home') }}</x-dropdown-link> --}}
                         <x-dropdown-link :href="route('profile')" wire:navigate> {{ __('Profile') }}</x-dropdown-link>
+                        <x-dropdown-link :href="route('dashboard')" wire:navigate> {{ __('Dashboard') }}</x-dropdown-link>
                         <button wire:click="logout" class="block w-full px-4 py-2 text-sm text-left text-gray-700"
                             role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</button>
                     </div>
@@ -119,6 +121,12 @@
                 <a href="{{ route('profile') }}" wire:navigate
                     class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
                     Your Profile
+                </a>
+
+                <a href="{{ route('dashboard') }}" wire:navigate
+                    class="block w-full px-4 py-2 text-base font-medium text-left text-gray-500 hover:bg-gray-100 hover:text-gray-800">
+
+                    Dashboard
                 </a>
 
                 <button wire:click="logout"
